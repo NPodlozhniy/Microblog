@@ -1,0 +1,21 @@
+language: python
+python:
+  - 3.7.1
+cache:
+  - cargo
+install:
+  - pip install codecov
+  - pip install flask
+  - pip install flask-sqlalchemy
+  - pip install flask-wtf
+  - pip install flask_migrate
+  - pip install flask-login
+  - pip install flask-mail
+  - pip install pyjwt
+  - pip install flask-bootstrap
+  - pip install flask-moment
+  - set FLASK_APP=microblog.py
+script:
+  - coverage run tests.py
+after_success:
+  - codecov
