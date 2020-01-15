@@ -1,4 +1,5 @@
 [![Build Status](https://travis-ci.org/NPodlozhniy/Microblog.svg?branch=master)](https://travis-ci.org/NPodlozhniy/Microblog)
+[![codecov](https://codecov.io/gh/NPodlozhniy/Microblog/branch/master/graph/badge.svg)](https://codecov.io/gh/NPodlozhniy/Microblog)
 # Microblog
 Final project for course of Principles, Practices, and Patterns of Software Design of MIPT master's degree program.
 This is small application written in **Python** with using **Flask** framework
