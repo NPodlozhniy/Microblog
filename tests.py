@@ -1,7 +1,8 @@
 from datetime import datetime, timedelta
 import unittest
 from app import app, db
-from app.models import User, Post
+from app.models import User, Post, load_user
+import time
 
 class UserModelCase(unittest.TestCase):
     def setUp(self):
@@ -84,6 +85,35 @@ class UserModelCase(unittest.TestCase):
         self.assertEqual(f2, [p2, p3])
         self.assertEqual(f3, [p3, p4])
         self.assertEqual(f4, [p4])
+
+    def test_reset_token(self):
+        u = User(username='john', email='john@example.com')
+        token1 = u.get_reset_password_token()
+        id1 = User.verify_reset_password_token(token1)
+        self.assertEqual(id1, u.id)
+
+        token2 = u.get_reset_password_token(expires_in=1)
+        time.sleep(2)
+        id2 = User.verify_reset_password_token(token2)
+        self.assertEqual(id2, None)
+
+class LoadUserCase(unittest.TestCase):
+    def setUp(self):
+        app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite://'
+        db.create_all()
+
+    def tearDown(self):
+        db.session.remove()
+        db.drop_all()
+
+    def test_loading_user(self):
+        u1 = User(username='john', email='john@example.com')
+        u2 = User(username='susan', email='susan@example.com')
+        db.session.add(u1)
+        db.session.add(u2)
+        db.session.commit()
+        self.assertEqual(load_user(1).username, 'john')
+        self.assertEqual(load_user(2).username, 'susan')
 
 if __name__ == '__main__':
     unittest.main(verbosity=2)
