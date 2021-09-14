@@ -21,7 +21,7 @@ $ pip install flask-<need_package>    (All required packages can be found in mic
  * To start the application run the following commands:
 
 ```
-$ export FLASK_APP=microblog.py  (set вместо export для Windows)
+$ export FLASK_APP=microblog.py  ('set' instead of 'export' for Windows)
 
 $ flask run
 ```
